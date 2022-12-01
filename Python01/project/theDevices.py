@@ -1,5 +1,8 @@
 """
 DEVICE MANAGEMENT SYSTEM (AML-1214 Project - Fall 2022)
+An application that the user/technician can use to add/view/delete/update/search
+for devices in their company's computer lab
+
 Submitted by:
 - Auradee Castro
 - Olivia Deguit
@@ -342,4 +345,5 @@ def writeFile(content_list, filename):
 
     return True
 
-main()
+if __name__ == "__main__":
+    main()
