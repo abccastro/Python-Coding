@@ -101,7 +101,7 @@ def startDeviceManagement():
         if command not in [item.value for item in Command]:
             print("Invalid selection. Try again.")
         elif command == Command.Exit.value:
-            print(f"\n{bg.GREEN}{ef.BRIGHT} Thank you for using the application! ")
+            print(f"\n{bg.GREEN} Thank you for using the application! ")
         else:
             device_list = readFile(DEVICE_FILENAME)
 
@@ -156,7 +156,7 @@ def startDeviceManagement():
                     print(f"{fg.RED}Invalid input. Type 'y' for yes or 'n' for no.")
             else:
                 if is_continue == "n":
-                    print(f"\n{bg.GREEN}{ef.BRIGHT} Thank you for using the application! ")
+                    print(f"\n{bg.GREEN} Thank you for using the application! ")
                     break
 
 def viewDeviceList(device_list):
@@ -289,7 +289,7 @@ def getDeviceName(device_code, device_list):
     if len(device_name_list) > 1:
         print(f"Device names using code {device_code}")
 
-    for idx, device_name in enumerate(device_name_list):
+    for device_name in device_name_list:
         if len(device_name_list) > 1:
             print(str(device_ctr) + ".", device_name[1])
         # list contains: [0] temp ID of device name [1] index from original list [2] device name
