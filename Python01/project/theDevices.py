@@ -14,13 +14,16 @@ init(autoreset=True)
 
 DEVICE_FILENAME = "devices.txt"
 
+
 class Command(Enum):
+
     View = "1"
     Add = "2"
     Delete = "3"
     Update = "4"
     Search = "5"
     Exit = "6"
+
 
 def main():
     """
@@ -31,7 +34,7 @@ def main():
     if is_login_account:
         startDeviceManagement()
     else:
-        print(f"{bg.RED}{ef.BOLD} Exiting application... ")
+        print(f"{bg.RED} Exiting application... ")
 
 def loginAccount():
     """
@@ -44,13 +47,14 @@ def loginAccount():
     login_attempt = 0
     is_login_account = False
     account_filename = "accounts"
+    max_login_attempt = 3
 
     account_list = readFile(account_filename)
 
     # If there are no errors reading the account file
     if account_list is not None:
 
-        while login_attempt != 3:
+        while login_attempt != max_login_attempt:
             username = input("Enter username: ")
             password = input("Enter password: ")
 
@@ -59,15 +63,15 @@ def loginAccount():
                     is_login_account = True
                     break
             else:
-                print(f"{fg.RED}{ef.BRIGHT}Invalid username and/or password\n")
+                login_attempt += 1
+                if login_attempt < max_login_attempt:
+                    print(f"{fg.RED}{ef.BRIGHT}Invalid username and/or password. You have {max_login_attempt - login_attempt} login attempt left.\n")
 
             if is_login_account:
                 print(f"{fg.GREEN}{ef.BRIGHT}Log In Successful\n")
                 break
-
-            login_attempt += 1
         else:
-            print(f"{fg.RED}{ef.BRIGHT}You have exceeded three login attempts")
+            print(f"{fg.RED}{ef.BRIGHT}Invalid username and/or password. You have exceeded {max_login_attempt} login attempts.")
 
     return is_login_account
 
@@ -82,7 +86,7 @@ def startDeviceManagement():
     command = None
     while command != Command.Exit.value:
         print()
-        print("1. View all device")
+        print("1. View all devices")
         print("2. Add a device")
         print("3. Delete a device")
         print("4. Update a device")
@@ -100,7 +104,7 @@ def startDeviceManagement():
 
             # If there is an error reading the device file
             if device_list is None:
-                print(f"{bg.RED}{ef.BOLD} Exiting application...")
+                print(f"{bg.RED} Exiting application...")
                 break
 
             if command == Command.View.value:
