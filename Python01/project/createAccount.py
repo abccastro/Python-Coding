@@ -4,6 +4,7 @@ import pickle
 def main():
     print("1. View Accounts")
     print("2. Add Account")
+    print("3. Delete Account")
 
     while True:
         command = input("What do you want to do? ")
@@ -13,6 +14,8 @@ def main():
             viewAccounts(accounts)
         elif command == "2":
             createAccount(accounts)
+        elif command == "3":
+            deleteAccount(accounts)
         else:
             break
 
@@ -29,7 +32,15 @@ def createAccount(accounts):
     account = [name, password]
     accounts.append(account)
     saveAccount(accounts)
+    print(f"{name} is added")
 
+def deleteAccount(accounts):
+    name = input("Enter username: ")
+    idx = [idx for idx, a in enumerate(accounts) if accounts[idx][0] == name]
+
+    accounts.pop(idx[0])
+    saveAccount(accounts)
+    print(f"{name} is deleted")
 
 def saveAccount(accounts):
     with open("accounts", "wb") as input_file:
