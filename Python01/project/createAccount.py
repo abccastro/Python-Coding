@@ -1,3 +1,6 @@
+"""
+CREATE ACCOUNT FOR DEVICE MANAGEMENT
+"""
 import pickle
 
 
