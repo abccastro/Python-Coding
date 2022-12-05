@@ -7,6 +7,7 @@ Submitted by:
 - Auradee Castro
 - Olivia Deguit
 - Bhumika Rajendra Babu
+
 """
 import pickle
 import re
@@ -29,9 +30,6 @@ class Command(Enum):
 
 
 def main():
-    """
-    The function that starts the applications
-    """
     is_login_account = loginAccount()
 
     if is_login_account:
@@ -42,6 +40,7 @@ def main():
 def loginAccount():
     """
     The function that prompts authorized users to log into the application
+    :return bool: True for successful login. False otherwise.
     """
     print(f"{fg.CYAN}+++++++++++++++++++++++++++++++++++++++++++++++++")
     print(f"{fg.CYAN}+             Login to Your Account             +")
@@ -99,7 +98,7 @@ def startDeviceManagement():
         command = input(f"\n{ef.BRIGHT}Select one option from the list (1, 2, 3, 4, 5 or 6): ").strip()
 
         if command not in [item.value for item in Command]:
-            print("Invalid selection. Try again.")
+            print(f"{fg.RED}Invalid selection. Try again.")
         elif command == Command.Exit.value:
             print(f"\n{bg.GREEN} Thank you for using the application! ")
         else:
@@ -162,6 +161,7 @@ def startDeviceManagement():
 def viewDeviceList(device_list):
     """
     The function that displays device records
+    :param list device_list: List of all devices
     """
     if len(device_list) > 0:
         print("List of all devices:")
@@ -173,6 +173,8 @@ def viewDeviceList(device_list):
 def addDevice(device_details, device_list):
     """
     The function that adds a device record
+    :param list device_details: Device details to be added that is stored in a list [index 0: device code, index 1: device name]
+    :param list device_list: List of all devices
     """
     is_continue = ""
     if isDuplicateDevice(device_details[0], device_details[1], device_list):
@@ -194,6 +196,8 @@ def addDevice(device_details, device_list):
 def deleteDevice(device_code, device_list):
     """
     The function that deletes device name(s) of the specified device code
+    :param str device_code: Device code to be deleted
+    :param list device_list: List of all devices
     """
     device_name_list = getDeviceName(device_code, device_list)
 
@@ -230,6 +234,8 @@ def deleteDevice(device_code, device_list):
 def updateDevice(device_code, device_list):
     """
     The function that updates device name(s) of the specified device code
+    :param str device_code: Device code to be updated
+    :param list device_list: List of all devices
     """
     device_name_list = getDeviceName(device_code, device_list)
 
@@ -266,6 +272,8 @@ def updateDevice(device_code, device_list):
 def searchDevice(keyword, device_list):
     """
     The function that searches for all devices that matches with the keyword
+    :param str keyword: Keyword to search for device
+    :param list device_list: List of all devices
     """
     keyword_ctr = 0
     for idx, device in enumerate(device_list):
@@ -279,6 +287,9 @@ def searchDevice(keyword, device_list):
 def getDeviceName(device_code, device_list):
     """
     The function that gets all device names using the specified device code
+    :param str device_code: Device code
+    :param list device_list: List of all devices
+    :return list: List of all device names using the code [index 0: temp ID of device name, index 1: index from the device list, index 2: device name]
     """
     new_device_name_list = []
     device_ctr = 1
@@ -301,6 +312,8 @@ def getDeviceName(device_code, device_list):
 def isValidDeviceCode(device_code):
     """
     The function that checks if a device code matches with the pattern
+    :param str device_code: Device code
+    :return bool: True if device code matches with the pattern. False otherwise.
     """
     device_code_pattern = re.compile(r"[0-9]{7}[a-zA-Z]{2}")
     result = device_code_pattern.fullmatch(device_code)
@@ -309,6 +322,10 @@ def isValidDeviceCode(device_code):
 def isDuplicateDevice(device_code, device_name, device_list):
     """
     The function that checks if a device record already exists
+    :param str device_code: Device code
+    :param str device_name: Device name
+    :param list device_list: List of all devices
+    :return bool: True if the device exists. False otherwise.
     """
     has_duplicate = False
     for device in device_list:
@@ -320,6 +337,8 @@ def isDuplicateDevice(device_code, device_name, device_list):
 def readFile(filename):
     """
     The function that reads content from a file
+    :param str filename: Filename
+    :return list: File content
     """
     try:
         with open(filename, "rb") as file:
@@ -335,6 +354,9 @@ def readFile(filename):
 def writeFile(content_list, filename):
     """
     The function that writes content to a file
+    :param list content_list: File content
+    :param str filename: Filename
+    :return bool: True is no error writing to the file. False otherwise.
     """
     try:
         with open(filename, "wb") as file:
