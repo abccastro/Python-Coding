@@ -61,7 +61,7 @@ def loginAccount():
             password = input("Enter password: ")
 
             for account in account_list:
-                if username == account[0] and password == account[1]:
+                if username.en and password == account[1]:
                     is_login_account = True
                     break
             else:
